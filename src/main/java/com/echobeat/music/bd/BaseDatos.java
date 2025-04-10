@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.echobeat.music.TipoUsuario;
-import com.echobeat.music.Usuario;
+import com.echobeat.model.TipoUsuario;
+import com.echobeat.model.Usuario;
 
 public class BaseDatos {
 

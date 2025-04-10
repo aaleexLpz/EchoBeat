@@ -1,4 +1,4 @@
-package com.echobeat.music;
+package com.echobeat.model;
 
 import java.time.LocalDate;
 import java.util.Objects;

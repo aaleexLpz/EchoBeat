@@ -1,4 +1,4 @@
-package com.echobeat.music;
+package com.echobeat.model;
 
 import java.util.Comparator;
 

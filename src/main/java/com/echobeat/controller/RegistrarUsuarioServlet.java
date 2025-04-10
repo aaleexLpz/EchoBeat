@@ -7,43 +7,60 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 
+import com.echobeat.model.TipoUsuario;
 import com.echobeat.model.Usuario;
 import com.echobeat.model.facade.EchoBeatFacade;
 
 /**
- * Servlet implementation class IniciarSesionServlet
+ * Servlet implementation class RegistrarUsuarioServlet
  */
-@WebServlet("/iniciarSesion")
-public class IniciarSesionServlet extends HttpServlet {
+@WebServlet("/registrarUsuario")
+public class RegistrarUsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		System.out.println("Username: " + username + "\nPassword: " + password);
+		String password2 = request.getParameter("password2");
+		String nombrePila = request.getParameter("nombrePila");
+		String email = request.getParameter("email");
+		String fechaNac = request.getParameter("fechaNac");
+		LocalDate fechaNacimiento = LocalDate.parse(fechaNac);
+		// TODO validar datos del usuario
+		
+		Usuario usuario = new Usuario(username, password, TipoUsuario.CLIENTE, false, nombrePila, email, fechaNacimiento);
+		
 		EchoBeatFacade facade = new EchoBeatFacade();
-		Usuario usuario = facade.iniciarSesion(username, password);
+		boolean registrado = facade.registrarUsuario(usuario);
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter salida = response.getWriter();
-		if(usuario != null) {
+		
+		if(registrado) {
 			salida.println("<!DOCTYPE html>");
 			salida.println("<html lang = 'es'>");
 			salida.println("<body>");
-			salida.println("<h1>Bienvenido " + usuario.getNombreUsuario() + "</h1>");
+			salida.println("<h1>Usuario " + usuario.getNombreUsuario() + " registrado correctamente </h1>");
 			salida.println("</body>");
 			salida.println("</html>");
 		} else {
 			salida.println("<!DOCTYPE html>");
 			salida.println("<html lang = 'es'>");
 			salida.println("<body>");
-			salida.println("<h1>Lo siento, los datos introducidos no son correctos.</h1>");
+			salida.println("<h1>El nombre de usuario ya existe</h1>");
 			salida.println("</body>");
 			salida.println("</html>");
 		}
+		
 	}
 
 }

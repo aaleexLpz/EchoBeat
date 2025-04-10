@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.echobeat.model.TipoUsuario;
 import com.echobeat.model.Usuario;
+import com.echobeat.model.exception.NombreUsuarioRepetidoException;
 
 public class BaseDatos {
 
@@ -29,11 +30,11 @@ public class BaseDatos {
 		return BaseDatos.instancia;
 	}
 	
-	public void insertarUsuario(Usuario usuario) {
+	public void insertarUsuario(Usuario usuario) throws NombreUsuarioRepetidoException {
 		if(!this.usuarios.containsKey(usuario.getNombreUsuario())) {
 			this.usuarios.put(usuario.getNombreUsuario(), usuario);
 		} else {
-			// TODO Lanzar un error
+			throw new NombreUsuarioRepetidoException("El usuario " + usuario.getNombreUsuario() + " ya existe");
 		}
 	}
 	

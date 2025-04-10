@@ -28,6 +28,17 @@ public class Usuario {
 //		this.playListsSeguidas = playListsSeguidas;
 	}
 	
+	public Usuario(String nombreUsuario, String clave, TipoUsuario tipoUsuario, boolean deBaja, String nombre, String email, LocalDate fechaNacimiento/*, Set<PlayList> playListsSeguidas*/) {
+		this.nombreUsuario = nombreUsuario;
+		this.clave = clave;
+		this.tipoUsuario = tipoUsuario.CLIENTE;
+		this.deBaja = false;
+		this.nombre = nombre;
+		this.email = email;
+		this.fechaNacimiento = fechaNacimiento;
+//		this.playListsSeguidas = playListsSeguidas;
+	}
+	
 	public int getIdUsuario() {
 		return this.idUsuario;
 	}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in | EchoBeat</title>
+    <title>Sign in | EchoBeat</title>
     <link rel="stylesheet" href="echoBeat-IndexStyles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,14 +15,22 @@
             <h1><a href="index.html">EchoBeat</a></h1>
             <h5>(Where u Beat it)</h5>
         </div>
-        <form action="iniciarSesion" method="post" id="formulario">
+        <form action="registrarUsuario" method="post" id="formulario2">
             <label for="username">Nombre de usuario</label>
             <input type="text" name="username" id="username">
             <label for="contrasenha">Contraseña</label>
             <input type="password" name="password" id="
             contrasenha">
-            <input type="submit" value="Log In" id="boton">
-            <span id="nuevaCuenta">No tienes cuenta? <a href="signIn.html">Crea una!</a></span>
+            <label for="contrasenha2">Repetir contraseña</label>
+            <input type="password" name="password2" id="
+            contrasenha2">
+            <label for="nombrePila">Nombre</label>
+            <input type="text" name="nombrePila" id="nombrePila">
+            <label for="correo">Email</label>
+            <input type="email" name="email" id="correo">
+            <label for="fechaNac">Fecha de nacimiento</label>
+            <input type="date" name="fechaNac" id="fechaNac">
+            <input type="submit" value="Sign In" id="boton">
         </form>
     </div>
 </body>

@@ -1,5 +1,10 @@
 package com.echobeat.music.bd;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +33,32 @@ public class BaseDatos {
 			BaseDatos.instancia = new BaseDatos();
 		}
 		return BaseDatos.instancia;
+	}
+	
+	public static void guardarBD() {
+		try(FileOutputStream fos = new FileOutputStream("baseDatos.dat");
+		ObjectOutputStream oos = new ObjectOutputStream(fos)) {;
+			
+			oos.writeObject(BaseDatos.instancia.usuarios);
+		
+		}catch(IOException e) {
+		
+			e.printStackTrace();
+		
+		}
+	}
+	
+	public static void cargarBD() {
+		try(FileInputStream fis = new FileInputStream("baseDatos.dat");
+		ObjectInputStream ois = new ObjectInputStream(fis);){
+			BaseDatos.instancia.usuarios =  (Map<String, Usuario>) ois.readObject();
+		} catch(IOException e) {
+			System.out.println("IOException");
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException");
+			e.printStackTrace();
+		}
 	}
 	
 	public void insertarUsuario(Usuario usuario) throws NombreUsuarioRepetidoException {

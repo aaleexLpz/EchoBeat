@@ -35,8 +35,9 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 		String nombrePila = request.getParameter("nombrePila");
 		String email = request.getParameter("email");
 		String fechaNac = request.getParameter("fechaNac");
-		LocalDate fechaNacimiento = LocalDate.parse(fechaNac);
-		// TODO validar datos del usuario
+		
+		if(username != null && !username.equals("") && password != null && !password.equals("") && password2 != null && !password2.equals("") && nombrePila != null && !nombrePila.equals("") && email != null && !email.equals("") && fechaNac != null && !fechaNac.equals("")) {
+			LocalDate fechaNacimiento = LocalDate.parse(fechaNac);
 		
 		Usuario usuario = new Usuario(username, password, TipoUsuario.CLIENTE, false, nombrePila, email, fechaNacimiento);
 		
@@ -61,6 +62,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 			salida.println("</html>");
 		}
 		
+	}
 	}
 
 }

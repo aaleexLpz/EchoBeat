@@ -13,25 +13,26 @@
     <div id="contenedorPrincipal">
         <div id="contenedorTitulo">
             <h1><a href="index.html">EchoBeat</a></h1>
-            <h5>(Where u Beat it)</h5>
+            <h5>Where every Beat leaves an Echo</h5>
         </div>
         <form action="registrarUsuario" method="post" id="formulario2">
             <label for="username">Nombre de usuario</label>
-            <input type="text" name="username" id="username">
+            <input type="text" name="username" id="username" required>
             <label for="contrasenha">Contraseña</label>
-            <input type="password" name="password" id="
-            contrasenha">
+            <input type="password" name="password" id="contrasenha" required minlength="8">
+            <span id="verificadorContrasenha"></span>
             <label for="contrasenha2">Repetir contraseña</label>
-            <input type="password" name="password2" id="
-            contrasenha2">
+            <input type="password" name="password2" id="contrasenha2" required minlength="8">
             <label for="nombrePila">Nombre</label>
-            <input type="text" name="nombrePila" id="nombrePila">
+            <input type="text" name="nombrePila" id="nombrePila" required>
             <label for="correo">Email</label>
-            <input type="email" name="email" id="correo">
+            <input type="email" name="email" id="correo" required>
             <label for="fechaNac">Fecha de nacimiento</label>
-            <input type="date" name="fechaNac" id="fechaNac">
+            <input type="date" name="fechaNac" id="fechaNac" required>
             <input type="submit" value="Sign In" id="boton">
         </form>
     </div>
+
+    <script src="signIn.js"></script>
 </body>
 </html>

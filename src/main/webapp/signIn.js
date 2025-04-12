@@ -46,7 +46,7 @@ function verificarContrasenha(){
         verificador.innerHTML = "Seguridad BAJA";
         verificador.style.color = "red";
     }else if(tipos == 2){
-        verificador.innerHTML = "Seguridad REGULAR";
+        verificador.innerHTML = "Seguridad MEDIA";
         verificador.style.color = "orange";
     }else{
         if(tipos == 3 || tipos == 4){

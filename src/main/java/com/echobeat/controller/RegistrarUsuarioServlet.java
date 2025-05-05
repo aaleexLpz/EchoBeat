@@ -37,7 +37,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 		String fechaNac = request.getParameter("fechaNac");
 		
 		if(username != null && !username.equals("") && password != null && !password.equals("") && password2 != null && !password2.equals("") && nombrePila != null && !nombrePila.equals("") && email != null && !email.equals("") && fechaNac != null && !fechaNac.equals("")) {
-			LocalDate fechaNacimiento = LocalDate.parse(fechaNac);
+		LocalDate fechaNacimiento = LocalDate.parse(fechaNac);
 		
 		Usuario usuario = new Usuario(username, password, TipoUsuario.CLIENTE, false, nombrePila, email, fechaNacimiento);
 		

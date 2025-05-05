@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -30,12 +32,9 @@ public class IniciarSesionServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter salida = response.getWriter();
 		if(usuario != null) {
-			salida.println("<!DOCTYPE html>");
-			salida.println("<html lang = 'es'>");
-			salida.println("<body>");
-			salida.println("<h1>Bienvenido " + usuario.getNombreUsuario() + "</h1>");
-			salida.println("</body>");
-			salida.println("</html>");
+			HttpSession sesion = request.getSession();
+			sesion.setAttribute("usuario", usuario);
+			request.getRequestDispatcher("principal.jsp").forward(request, response);
 		} else {
 			salida.println("<!DOCTYPE html>");
 			salida.println("<html lang = 'es'>");

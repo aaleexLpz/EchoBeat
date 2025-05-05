@@ -14,18 +14,26 @@ public class PlayList {
 	private String nombre;
 	private String portada;
 	private boolean publica;
-	private List<Cancion> canciones;
 	private Usuario propietario;
-	private Set<Usuario> seguidores; // El orden de los seguidores no es relevante 
+	private Set<Usuario> seguidores;
+	private List<Cancion> canciones;
 	
-	public PlayList(int idPlayList, String nombre, String portada, boolean publica, List<Cancion> canciones,
-			Usuario propietario, Set<Usuario> seguidores) {
+	public PlayList(int idPlayList, String nombre, String portada, boolean publica, Usuario propietario, Set<Usuario> seguidores, List<Cancion> canciones) {
 		this.idPlayList = idPlayList;
 		this.nombre = nombre;
 		this.portada = portada;
 		this.publica = publica;
-		this.canciones = new ArrayList<Cancion>();
 		this.propietario = propietario;
+		this.seguidores = seguidores;
+		this.canciones = canciones;
+	}
+
+	public PlayList(String nombre, String portada, boolean publica, Usuario propietario) {
+		this.nombre = nombre;
+		this.portada = portada;
+		this.publica = publica;
+		this.propietario = propietario;
+		this.canciones = new ArrayList<Cancion>();
 		this.seguidores = new HashSet<Usuario>();
 	}
 
@@ -61,14 +69,6 @@ public class PlayList {
 		this.publica = publica;
 	}
 
-	public List<Cancion> getCanciones() {
-		return canciones;
-	}
-
-	public void setCanciones(List<Cancion> canciones) {
-		this.canciones = canciones;
-	}
-
 	public Usuario getPropietario() {
 		return propietario;
 	}
@@ -85,6 +85,14 @@ public class PlayList {
 		this.seguidores = seguidores;
 	}
 
+	public List<Cancion> getCanciones() {
+		return canciones;
+	}
+
+	public void setCanciones(List<Cancion> canciones) {
+		this.canciones = canciones;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(idPlayList);
@@ -92,29 +100,27 @@ public class PlayList {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PlayList other = (PlayList) obj;
-		return idPlayList == other.idPlayList;
+		boolean iguales = false;
+		if (obj != null && obj instanceof PlayList) {
+			PlayList otra = (PlayList) obj;
+			iguales = this.idPlayList == otra.idPlayList;
+		}
+		return iguales;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("PlayList [idPlayList=").append(idPlayList).append(", nombre=").append(nombre)
-				.append(", portada=").append(portada).append(", publica=").append(publica).append(", canciones=")
-				.append(canciones).append(", propietario=").append(propietario).append(", seguidores=")
-				.append(seguidores).append("]");
+				.append(", portada=").append(portada).append(", publica=").append(publica).append(", propietario=")
+				.append(propietario).append(", seguidores=").append(seguidores).append(", canciones=")
+				.append(canciones).append("]");
 		return builder.toString();
 	}
 	
 	public int calcularDuracion() {
 		int total = 0;
-		for(Cancion cancion : this.canciones) {
+		for (Cancion cancion : this.canciones) {
 			total = total + cancion.getDuracion();
 		}
 		return total;
@@ -126,10 +132,10 @@ public class PlayList {
 	
 	public String convertirDuracion() {
 		int duracion = calcularDuracion();
-		int horas = duracion / (60 * 60);
-		int min = (duracion % (60 * 60)) / 60;
-		int seg = (duracion % (60 * 60)) % 60;
-		return horas + ":" + min + ":" + seg;
+		int horas = duracion / (60*60);
+		int minutos = (duracion % (60*60)) / 60;
+		int segundos = (duracion % (60*60)) % 60;
+		return horas + ":" + minutos + ":" + segundos;
 	}
 	
 	public void insertarCancion(Cancion cancion) {
@@ -140,12 +146,12 @@ public class PlayList {
 		this.canciones.remove(posicion);
 	}
 	
-	// Eliminar todas las instancias de la cancion en la PlayList
 	public void eliminarCancion(Cancion cancion) {
-		boolean eliminada = true;
-		while(eliminada) {
-			eliminada = this.canciones.remove(cancion);
-		}
+		while (this.canciones.remove(cancion)) {}
+//		boolean eliminada = true;
+//		while (eliminada) {
+//			eliminada = this.canciones.remove(cancion);
+//		}
 	}
 	
 	public void insertarSeguidor(Usuario seguidor) {
@@ -155,5 +161,4 @@ public class PlayList {
 	public void eliminarSeguidor(Usuario seguidor) {
 		this.seguidores.remove(seguidor);
 	}
-	
 }

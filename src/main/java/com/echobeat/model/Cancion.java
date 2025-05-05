@@ -4,28 +4,47 @@ import java.util.List;
 import java.util.Objects;
 
 public class Cancion implements Comparable<Cancion>{
-
-	private int idCancion;
-	private String titulo;
-	private int duracion;
-	private Genero genero;
-	private int anho;
-	private Album album;
-	private boolean publica;
-	private List<Interprete> interprete;
-	private Usuario usuario;
 	
-	public Cancion(int idCancion, String titulo, int duracion, Genero genero, int anho, Album album, boolean publica, List<Interprete> interprete, Usuario usuario) {
+	private int idCancion;
+	private String titulo; //
+	private String rutaCancion; //input type=file
+	private int duracion; //
+	private Genero genero; //
+	private int anho; //
+	private Album album;
+	private boolean publica; //
+	private List<Interprete> interpretes;
+	private Usuario propietario;
+
+	public Cancion(int idCancion, String titulo, String rutaCancion, int duracion, Genero genero, int anho, Album album,
+			boolean publica, List<Interprete> interpretes, Usuario propietario) {
 		this.idCancion = idCancion;
 		this.titulo = titulo;
+		this.rutaCancion = rutaCancion;
 		this.duracion = duracion;
 		this.genero = genero;
 		this.anho = anho;
 		this.album = album;
 		this.publica = publica;
-		this.interprete = interprete;
-		this.usuario = usuario;
+		this.interpretes = interpretes;
+		this.propietario = propietario;
 	}
+	
+	public Cancion(String titulo, String rutaCancion, int duracion, Genero genero, int anho, Album album,
+			boolean publica, List<Interprete> interpretes, Usuario propietario) {
+		super();
+		this.titulo = titulo;
+		this.rutaCancion = rutaCancion;
+		this.duracion = duracion;
+		this.genero = genero;
+		this.anho = anho;
+		this.album = album;
+		this.publica = publica;
+		this.interpretes = interpretes;
+		this.propietario = propietario;
+	}
+
+
 
 	public int getIdCancion() {
 		return idCancion;
@@ -75,7 +94,7 @@ public class Cancion implements Comparable<Cancion>{
 		this.album = album;
 	}
 
-	public boolean getPublica() {
+	public boolean isPublica() {
 		return publica;
 	}
 
@@ -83,20 +102,28 @@ public class Cancion implements Comparable<Cancion>{
 		this.publica = publica;
 	}
 
-	public List<Interprete> getInterprete() {
-		return interprete;
+	public List<Interprete> getInterpretes() {
+		return interpretes;
 	}
 
-	public void setInterprete(List<Interprete> interprete) {
-		this.interprete = interprete;
+	public void setInterpretes(List<Interprete> interpretes) {
+		this.interpretes = interpretes;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public Usuario getPropietario() {
+		return propietario;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setPropietario(Usuario propietario) {
+		this.propietario = propietario;
+	}
+
+	public String getRutaCancion() {
+		return rutaCancion;
+	}
+
+	public void setRutaCancion(String rutaCancion) {
+		this.rutaCancion = rutaCancion;
 	}
 
 	@Override
@@ -106,44 +133,28 @@ public class Cancion implements Comparable<Cancion>{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cancion other = (Cancion) obj;
-		return idCancion == other.idCancion;
+		boolean iguales = false;
+		if (obj != null && obj instanceof Cancion) {
+			Cancion otra = (Cancion) obj;
+			iguales = this.idCancion == otra.idCancion;
+		}
+		return iguales;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("\nID de la canción: ")
-		.append(getIdCancion())
-		.append("\nTítulo: ")
-		.append(getTitulo())
-		.append("\nDuración: ")
-		.append(getDuracion())
-		.append("\nGénero: ")
-		.append(getGenero())
-		.append("\nAño de salida: ")
-		.append(getAnho())
-		.append("\nÁlbum: ")
-		.append(album != null ? album.getNombre() : "No hay ningún álbum")
-		.append("\nEs pública? ")
-		.append(getPublica())
-		.append("\nIntérpretes: ")
-		.append(getInterprete())
-		.append("\nPropietario: ")
-		.append(usuario.getNombreUsuario());
+		builder.append("Cancion [idCancion=").append(idCancion).append(", titulo=").append(titulo).append(", duracion=")
+				.append(duracion).append(", genero=").append(genero).append(", anho=").append(anho).append(", album=")
+				.append(album != null ? album.getNombre() : "null").append(", publica=").append(publica).append(", interpretes=")
+				.append(interpretes).append(", propietario=").append(propietario).append("]");
 		return builder.toString();
 	}
 	
 	public String convertirDuracion() {
-		int min = this.duracion / 60;
-		int seg = this.duracion % 60;
-		return min + ":" + seg;
+		int minutos = this.duracion / 60;
+		int segundos = this.duracion % 60;
+		return minutos + ":" + segundos;
 	}
 
 	@Override

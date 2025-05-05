@@ -1,17 +1,21 @@
 package com.echobeat.model.facade;
 
+import java.util.List;
+
+import com.echobeat.model.Cancion;
+import com.echobeat.model.PlayList;
 import com.echobeat.model.Usuario;
 import com.echobeat.model.exception.NombreUsuarioRepetidoException;
 import com.echobeat.music.bd.BaseDatos;
 
 public class EchoBeatFacade {
 
-	// El método devolverá un usuario si los datos son correctos o null si no lo son
-	public Usuario iniciarSesion(String username, String password) {
+	/* El método devolverá un usuario si los datos son correctos o null si no lo son*/
+	public Usuario iniciarSesion(String nombreUsuario, String clave) {
 		BaseDatos bd = BaseDatos.getInstance();
-		Usuario usuario = bd.buscarUsuarioPorNombreUsuario(username);
-		if(usuario != null) { // El usuario existe en la bbdd
-			if(usuario.getClave().equals(password)){ // Las claves coinciden
+		Usuario usuario = bd.buscarUsuarioPorNombreUsuario(nombreUsuario);
+		if (usuario != null) { //El nombreUsuario existe en la BD
+			if (usuario.getClave().equals(clave)) { //Las claves coinciden
 				return usuario;
 			} else {
 				return null;
@@ -30,8 +34,22 @@ public class EchoBeatFacade {
 			e.printStackTrace();
 			return false;
 		}
-		
 	}
 	
+	public void subirCancion(Cancion cancion) {
+		BaseDatos bd = BaseDatos.getInstance();
+		bd.insertarCancion(cancion);
+	}
+	
+	public List<Cancion> buscarCancionesPorTitulo(String titulo) {
+		BaseDatos bd = BaseDatos.getInstance();
+		return bd.buscarCancionesPorTitulo(titulo);
+	}
+
+	public void crearPlaylist(PlayList playList) {
+		BaseDatos bd = BaseDatos.getInstance();
+		bd.insertarPlayList(playList);
+		
+	}
 	
 }

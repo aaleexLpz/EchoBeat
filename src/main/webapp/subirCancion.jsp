@@ -26,12 +26,29 @@
             <input type="number" name="duracion" id="txtDuracion">
             <select name="genero" required>
                 <option value="" disabled selected>Elige un género</option>
-                <option value="ROCK">Rock</option>
-                <option value="POP">Pop</option>
-                <option value="CLASICA">Clásica</option>
-                <option value="FOLK">Folk</option>
-                <option value="BSO">Banda sonora original</option>
+                <option value="ROCK">ROCK</option>
+                <option value="POP">POPO</option>
+                <option value="CLASICA">CLÁSICA</option>
+                <option value="FOLK">FOLK</option>
+                <option value="BSO">BSO</option>
                 <option value="RAP">RAP</option>
+                <option value="REGGAETON">REGGAETON</option>
+                <option value="METAL">METAL</option>
+                <option value="INDIE">INDIE</option>
+                <option value="JAZZ">JAZZ</option>
+                <option value="ELECTRONICA">ELECTRÓNICA</option>
+                <option value="COUNTRY">COUNTRY</option>
+                <option value="SALSA">SALSA</option>
+                <option value="BLUES">BLUES</option>
+                <option value="PUNK">PUNK</option>
+                <option value="CUMBIA">CUMBIA</option>
+                <option value="BACHATA">BACHATA</option>
+                <option value="TANGO">TANGO</option>
+                <option value="MERENGUE">MERENGUE</option>
+                <option value="HOUSE">HOUSE</option>
+                <option value="TECHNO">TECHNO</option>
+                <option value="REGGAE">REGGAE</option>
+                <option value="TRAP">TRAP</option>
             </select>
             <label for="txtAnho">Año:</label>
             <input type="number" name="anho" id="txtAnho">

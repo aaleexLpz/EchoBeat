@@ -7,7 +7,8 @@
 <html lang="es">
 	<head>
 		<meta charset="UTF-8">
-		<title>Echo-Beat</title>
+		<title>EchoBeat</title>
+		<link rel="shortcut icon" href="./images/favicon-EchoBeat-BlankaFont.png" type="image/x-icon">
 	</head>
 	<body>
 		<header>
@@ -44,5 +45,7 @@
 				<% } %>
 			<% } %>
 		</main>
+
+		<script src="principal.js"></script>
 	</body>
 </html>

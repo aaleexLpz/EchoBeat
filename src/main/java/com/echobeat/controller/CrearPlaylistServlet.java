@@ -42,7 +42,7 @@ public class CrearPlaylistServlet extends HttpServlet {
 		String rutaFichero = rutaServidor + File.separator + nombreFichero;
 		parte.write(rutaFichero);
 		
-		PlayList playList = new PlayList(nombre, rutaFichero, publica, usuario);
+		PlayList playList = new PlayList(nombre, nombreFichero, publica, usuario);
 		
 		EchoBeatFacade fachada = new EchoBeatFacade();
 		fachada.crearPlaylist(playList);

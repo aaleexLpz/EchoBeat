@@ -7,8 +7,8 @@ import com.echobeat.model.Cancion;
 import com.echobeat.model.PlayList;
 import com.echobeat.model.Usuario;
 import com.echobeat.model.dao.CancionDAO;
+import com.echobeat.model.dao.PlayListDAO;
 import com.echobeat.model.dao.UsuarioDAO;
-import com.echobeat.music.bd.BaseDatos;
 
 public class EchoBeatFacade {
 
@@ -19,30 +19,18 @@ public class EchoBeatFacade {
 		Usuario usuario;
 		try {
 			usuario = dao.buscarUsuarioPorNombreUsuario(nombreUsuario);
-			
 			if (usuario != null) { //El nombreUsuario existe en la BD
-				
 			if (usuario.getClave().equals(clave)) { //Las claves coinciden
-				
 				return usuario;
-				
 			} else {
-				
 				return null;
-				
 			}
-			
 		} else {
-			
 			return null;
-			
 		}
-			
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 			return null;
-		
 		}
 		
 	}
@@ -71,14 +59,25 @@ public class EchoBeatFacade {
 		}
 	}
 	
-	public List<Cancion> buscarCancionesPorTitulo(String titulo) {
-		BaseDatos bd = BaseDatos.getInstance();
-		return bd.buscarCancionesPorTitulo(titulo);
+	public List<Cancion> buscarCancionesPorTitulo(String titulo, Usuario usuario) {
+		// BaseDatos bd = BaseDatos.getInstance();
+		CancionDAO dao = new CancionDAO();
+		try {
+			return dao.buscarCancionesPorTitulo(titulo, usuario);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public void crearPlaylist(PlayList playList) {
-		BaseDatos bd = BaseDatos.getInstance();
-		bd.insertarPlayList(playList);
+		// BaseDatos bd = BaseDatos.getInstance();
+		PlayListDAO dao = new PlayListDAO();
+		try {
+			dao.insertarPlayList(playList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

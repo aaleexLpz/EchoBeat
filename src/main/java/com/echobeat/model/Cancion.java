@@ -46,6 +46,17 @@ public class Cancion implements Comparable<Cancion>{
 
 
 
+	public Cancion(int idCancion2, String titulo2, String rutaCancion, int duracion2, Genero genero2, int anho2, boolean publica2, Usuario usuario) {
+		this.idCancion = idCancion2;
+		this.titulo = titulo2;
+		this.rutaCancion = rutaCancion;
+		this.duracion = duracion2;
+		this.genero = genero2;
+		this.anho = anho2;
+		this.publica = publica2;
+		this.propietario = usuario;
+	}
+
 	public int getIdCancion() {
 		return idCancion;
 	}

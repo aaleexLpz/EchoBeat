@@ -10,6 +10,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.echobeat.model.Cancion;
 import com.echobeat.model.Genero;
 import com.echobeat.model.TipoUsuario;
@@ -17,18 +22,19 @@ import com.echobeat.model.Usuario;
 
 public class CancionDAO {
 
-	private final static String URL_CONEXION = "jdbc:mysql://localhost:3306/echobeat?user=root";
+	private DataSource ds; 
 	
 	public CancionDAO() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
+			Context contexto = new InitialContext();
+			this.ds = (DataSource) contexto.lookup("java:comp/env/jdbc/EchoBeatDS");
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void insertarCancion(Cancion cancion) throws SQLException {
-		try(Connection conexion = DriverManager.getConnection(URL_CONEXION);){
+		try(Connection conexion = this.ds.getConnection()){
 			
 			PreparedStatement sentencia = conexion.prepareStatement(
 					"insert into cancion (titulo, cancion, duracion, genero, anho, publica, idUsuario, idAlbum) values (?, ?, ?, ?, ?, ?, ?, ?)"
@@ -53,7 +59,7 @@ public class CancionDAO {
 		Cancion cancion = null;
 		
 		try(
-			Connection conexion = DriverManager.getConnection(URL_CONEXION);	
+				Connection conexion = this.ds.getConnection();	
 			){
 			
 			PreparedStatement sentencia = conexion.prepareStatement(

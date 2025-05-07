@@ -8,23 +8,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
 import com.echobeat.model.TipoUsuario;
 import com.echobeat.model.Usuario;
 
-public class UsuarioDAO {
+public class UsuarioDAOold {
 
-	private DataSource ds; 
+	private final static String URL_CONEXION = "jdbc:mysql://localhost:3306/echobeat?user=root";
 	
-	public UsuarioDAO() {
+	public UsuarioDAOold() {
 		try {
-			Context contexto = new InitialContext();
-			this.ds = (DataSource) contexto.lookup("java:comp/env/jdbc/EchoBeatDS");
-		} catch (NamingException e) {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -32,7 +26,7 @@ public class UsuarioDAO {
 	public void insertarUsuario(Usuario usuario) throws SQLException {
 		try (
 			// 1º Obtener conexión del DriverManager
-			Connection conexion = this.ds.getConnection()) {
+			Connection conexion = DriverManager.getConnection(URL_CONEXION);) {
 
 			// 2º Preparar la sentencia desde la conexión
 			PreparedStatement sentencia = conexion.prepareStatement(
@@ -60,7 +54,7 @@ public class UsuarioDAO {
 		try(
 				
 				// 1º Obtener la conexión
-				Connection conexion = this.ds.getConnection();
+				Connection conexion = DriverManager.getConnection(URL_CONEXION);
 			){
 			
 			// 2º Preparar la sentencia
@@ -94,7 +88,8 @@ public class UsuarioDAO {
 	public boolean modificarUsuario(Usuario usuario) throws SQLException {
 		
 		try(
-			Connection conexion = this.ds.getConnection()){
+			Connection conexion = DriverManager.getConnection(URL_CONEXION);	
+			){
 			
 			PreparedStatement sentencia = conexion.prepareStatement(
 					"update usuario set clave = ? and deBaja = ? and nombre = ? and email = ? fechaNac = ? where idUsuario = ?"

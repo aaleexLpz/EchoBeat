@@ -11,6 +11,9 @@ import java.time.LocalDate;
 
 import com.echobeat.model.TipoUsuario;
 import com.echobeat.model.Usuario;
+import com.echobeat.model.exception.ErrorInternoException;
+import com.echobeat.model.exception.NombreUsuarioRepetidoException;
+import com.echobeat.model.exception.SinConexionException;
 import com.echobeat.model.facade.EchoBeatFacade;
 
 /**
@@ -42,26 +45,27 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 		Usuario usuario = new Usuario(username, password, TipoUsuario.CLIENTE, false, nombrePila, email, fechaNacimiento);
 		
 		EchoBeatFacade facade = new EchoBeatFacade();
-		boolean registrado = facade.registrarUsuario(usuario);
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter salida = response.getWriter();
 		
-		if(registrado) {
-			salida.println("<!DOCTYPE html>");
-			salida.println("<html lang = 'es'>");
-			salida.println("<body>");
-			salida.println("<h1>Usuario " + usuario.getNombreUsuario() + " registrado correctamente </h1>");
-			salida.println("</body>");
-			salida.println("</html>");
-		} else {
-			salida.println("<!DOCTYPE html>");
-			salida.println("<html lang = 'es'>");
-			salida.println("<body>");
-			salida.println("<h1>El nombre de usuario ya existe</h1>");
-			salida.println("</body>");
-			salida.println("</html>");
+		try {
+			boolean registrado = facade.registrarUsuario(usuario);
+			
+			if(registrado) {
+				request.getRequestDispatcher("iniciarSesion").forward(request, response);
+			}
+			
+		} catch (NombreUsuarioRepetidoException e) {
+			e.printStackTrace();
+			request.setAttribute("usuarioRepetido", "El nombre de usuario ya existe");
+			request.getRequestDispatcher("signIn.jsp").forward(request, response);
+		} catch (ErrorInternoException e) {
+			e.printStackTrace();
+			request.setAttribute("error", "Error interno, contacte con soporte");
+			request.getRequestDispatcher("signIn.jsp").forward(request, response);
+		} catch (SinConexionException e) {
+			e.printStackTrace();
+			request.setAttribute("error", "No se ha podido conectar con el servidor de datos");
+			request.getRequestDispatcher("signIn.jsp").forward(request, response);
 		}
-		
 	}
 	}
 

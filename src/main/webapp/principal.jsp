@@ -10,7 +10,7 @@
 		<title>EchoBeat</title>
 		<link rel="shortcut icon" href="./images/favicon-EchoBeat-BlankaFont.png" type="image/x-icon">
 	</head>
-	<body>
+	<%@ include file="fragmentoError.jsp" %>
 		<header>
 			<h1>Echo-Beat</h1>
 		</header>

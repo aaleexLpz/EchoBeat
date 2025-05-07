@@ -2,6 +2,7 @@ package com.echobeat.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import com.echobeat.model.PlayList;
 import com.echobeat.model.Usuario;
@@ -13,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 /**
@@ -46,6 +48,12 @@ public class CrearPlaylistServlet extends HttpServlet {
 		
 		EchoBeatFacade fachada = new EchoBeatFacade();
 		fachada.crearPlaylist(playList);
+		// Añadir la nueva playList a la caché de la sesión
+		HttpSession sesion = request.getSession();
+		List<PlayList> listaPlayList = (List<PlayList>) sesion.getAttribute("playLists");
+		listaPlayList.add(playList);
+		sesion.setAttribute("playLists", listaPlayList);
+		
 		response.sendRedirect("principal.jsp");
 	}
 

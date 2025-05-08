@@ -1,0 +1,19 @@
+* {
+	color: white;
+}
+
+#botonBuscar {
+	color: black;
+}
+
+.imagenPortada {
+	width: 200px;
+}
+
+.divPlayList {
+	display: none;
+}
+
+#botonAddCancion {
+	color: black;
+}

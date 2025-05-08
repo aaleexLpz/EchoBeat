@@ -13,3 +13,34 @@ function comprobar(cancion){
         }
     }
 }
+
+var cancionSeleccionada;
+function verPlayList(cancion){
+    cancionSeleccionada = cancion;
+    let divPlayList = document.querySelector(".divPlayList").style.display = "block";
+}
+
+function addCancion(){
+    let listasSeleccionadas = document.querySelectorAll(".listaPlayList [type=checkbox]:checked");
+    console.log(listasSeleccionadas);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("post", "addCancionPlayList", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState == 4){
+            if(xhr.status == 200){
+                alert("Canción agregada correctamente");
+            }else{
+                alert("No se ha podido agregar. ERROR: " + xhr.status);
+            }
+        }            
+    };
+    let datos = `cancion=${cancionSeleccionada}`;
+    for(let checkbox of listasSeleccionadas){
+        datos = datos + `&lista=${checkbox.value}`;
+    }
+    console.log(datos);
+    xhr.send(datos);
+    
+}

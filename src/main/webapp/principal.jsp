@@ -1,3 +1,4 @@
+<%@page import="com.echobeat.model.PlayList"%>
 <%@page import="com.echobeat.model.Cancion"%>
 <%@page import="java.util.List"%>
 <%@page import="com.echobeat.model.Usuario"%>
@@ -9,6 +10,8 @@
 		<meta charset="UTF-8">
 		<title>EchoBeat</title>
 		<link rel="shortcut icon" href="./images/favicon-EchoBeat-BlankaFont.png" type="image/x-icon">
+		<link rel="stylesheet" href="echoBeat-IndexStyles.css">
+		<link rel="stylesheet" href="echoBeat-PrincipalStyles.css">
 	</head>
 	<%@ include file="fragmentoError.jsp" %>
 		<header>
@@ -27,7 +30,7 @@
 			<form action="BuscarCancion" method="get">
 				<label for="txtBusqueda">Título:</label>
 				<input type="search" name="titulo" id="txtBusqueda">
-				<input type="submit" value="Buscar">
+				<input type="submit" value="Buscar" id="botonBuscar">
 			</form>
 			<% List<Cancion> listaCanciones = (List<Cancion>)request.getAttribute("listaCanciones"); %>
 			<% if (listaCanciones != null) { %>
@@ -40,12 +43,29 @@
 							<audio controls>
 								<source src="/CANCIONES/<%=cancion.getRutaCancion()%>">
 							</audio>
+							<button type="button" onclick="verPlayList(<%=cancion.getIdCancion()%>)">🙀</button>
 						</div>
 					<% } %>
 				<% } %>
 			<% } %>
 		</main>
-
+		<div class="divPlayList">
+			<h2>PlayLists</h2>
+			<% List<PlayList> listaPlayList = (List<PlayList>)session.getAttribute("playLists"); %>
+			<% if(listaPlayList.size() == 0) { %>
+				<div>No tienes ninguna lista de reproducción</div>
+			<% } else { %>
+				<ul class="listaPlayList">
+				<% for(PlayList pl : listaPlayList) { %>
+					<li>
+						<img src="/PORTADAS/<%=pl.getPortada()%>" alt="portada lista reproducción" class="imagenPortada"><%=pl.getNombre()%>
+						<input type="checkbox" value="<%=pl.getIdPlayList()%>">
+					</li>
+				<% } %>
+				</ul>
+				<input type="button" value="Añadir" onclick="addCancion()" id="botonAddCancion">
+			<% } %>
+		</div>
 		<script src="principal.js"></script>
 	</body>
 </html>

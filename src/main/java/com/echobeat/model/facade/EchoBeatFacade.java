@@ -108,4 +108,42 @@ public class EchoBeatFacade {
 		return lista;
 	}
 	
+	public void meterCancionEnPlayLists(int idCancion, int[] playLists) {
+		PlayListDAO dao = new PlayListDAO();
+		for(int idPlayList : playLists) {
+			try {
+				dao.insertarCancionPlayList(idCancion, idPlayList);
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public List<PlayList> buscarPlayListPorSeguidor(Usuario usuario) {
+		PlayListDAO dao = new PlayListDAO();
+		List<PlayList> lista = null;
+		try {
+			lista = dao.buscarPlayListPorSeguidor(usuario);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lista;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -44,6 +44,7 @@
 								<source src="/CANCIONES/<%=cancion.getRutaCancion()%>">
 							</audio>
 							<button type="button" onclick="verPlayList(<%=cancion.getIdCancion()%>)">🙀</button>
+							<button type="button" onclick="verLetra('<%=cancion.getTitulo()%>', 'Chayanne')">Ver letra</button>
 						</div>
 					<% } %>
 				<% } %>
@@ -65,6 +66,9 @@
 				</ul>
 				<input type="button" value="Añadir" onclick="addCancion()" id="botonAddCancion">
 			<% } %>
+		</div>
+		<div id="letra">
+
 		</div>
 		<script src="principal.js"></script>
 	</body>

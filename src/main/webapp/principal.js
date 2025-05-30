@@ -44,3 +44,22 @@ function addCancion(){
     xhr.send(datos);
     
 }
+
+function verLetra(titulo, autor){
+    let url = `http://localhost:8080/LetrasCancionesWS/api/letra/${titulo}/${autor}`;
+
+    fetch(url)
+    .then(respuesta => {
+        respuesta.json()
+        .then((datos) => {
+            htmlLetra = `
+                <div id="contenedorLetra">
+                    <p>${datos.lyrics}</p>
+                </div>
+            `;
+            document.getElementById("letra").innerHTML = htmlLetra;
+        })
+        .catch(error => console.error(error));
+    })
+    .catch(error => console.error(error));
+}
